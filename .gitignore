@@ -48,3 +48,11 @@ obj/
 
 # Mac OS
 .DS_Store
+
+# IDE и Visual Studio
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

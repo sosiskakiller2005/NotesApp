@@ -1,6 +1,7 @@
 import type NoteProps from '@/props/NoteProps';
-import { Button, Input, Textarea,  } from '@chakra-ui/react'
+import { Button, Field, Fieldset, Input, Stack, Textarea,  } from '@chakra-ui/react'
 import { useState } from 'react';
+import '../../index.css'
 
 
 export default function CreateNoteForm({ onCreate }: { onCreate: (note: NoteProps) => void }) {
@@ -19,11 +20,17 @@ export default function CreateNoteForm({ onCreate }: { onCreate: (note: NoteProp
   }
 
     return (
-        <form action="" className='w-full flex flex-col gap-3' onSubmit={onSubmit}>
-          <h3 className='font-bold text-x1'>Создание заметки</h3>
-          <Input type="text" placeholder='Название заметки' value={note?.title ?? ''} onChange={(e) => setNote({...note, title: e.target.value})}/>
-          <Textarea name="" id="" placeholder='Описание' value={note?.description ?? ''} onChange={(e) => setNote({...note, description: e.target.value})}/>
-          <Button type='submit'>Создать</Button>
-        </form>
+        <Fieldset.Root className='w-full flex flex-col ' onSubmit={onSubmit}>
+          <Stack>
+            <Fieldset.Legend>Создание заметки</Fieldset.Legend>
+
+            <Field.Root>
+              <Input type="text" placeholder='Название заметки' value={note?.title ?? ''} onChange={(e) => setNote({...note, title: e.target.value})}/>
+              <Textarea name="" id="" placeholder='Описание' value={note?.description ?? ''} onChange={(e) => setNote({...note, description: e.target.value})}/>
+              <Button className='w-full' type='submit' onClick={onSubmit}>Создать</Button>
+            </Field.Root>
+
+          </Stack>
+        </Fieldset.Root>
     );
 }

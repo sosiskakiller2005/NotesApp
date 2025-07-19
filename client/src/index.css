@@ -19,3 +19,38 @@ text-rendering: optimizeLegibility;
 -moz-osx-font-smoothing: grayscale;
 } */
 
+.app.light {
+    background-color: white;
+}
+
+app.dark {
+    background-color: black;
+}
+
+.card {
+    /* background-color: white; */
+}
+
+.themeBtn {
+    background-color: white;
+    transition: background-color 0.7s ease;
+}
+
+.themeBtn.light {
+    background-color: black;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: background-color 0.7s ease;
+  }
+  
+  .theme-toggle-button.dark-mode .icon {
+    background-color: #fff; /* Изменение цвета иконки */
+  }
