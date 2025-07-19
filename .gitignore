@@ -27,4 +27,24 @@ coverage/
 # TypeScript временные файлы
 *.tsbuildinfo
 
+# build output
+bin/
 obj/
+*.exe
+*.dll
+*.pdb
+*.db
+*.cache
+
+# VS Copilot
+.vs/Notes/CopilotIndices/
+
+# dotnet и NuGet
+*.nuget.cache
+*.csproj.user
+
+# TypeScript
+*.tsbuildinfo
+
+# Mac OS
+.DS_Store
