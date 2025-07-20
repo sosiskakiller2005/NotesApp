@@ -3,4 +3,5 @@ export default interface NoteProps {
     title: string;
     description: string;
     createdAt: Date;
+    onDelete: (id: number) => void;
   }

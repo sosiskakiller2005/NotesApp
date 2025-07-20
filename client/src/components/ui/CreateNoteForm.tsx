@@ -14,7 +14,9 @@ export default function CreateNoteForm({ onCreate }: { onCreate: (note: NoteProp
       title: note.title || '',
       description: note.description || '',
       createdAt: new Date(),
+      onDelete: () => {}, // заглушка, не делает ничего
     };
+    setNote({ title: '', description: '' }); // Сброс формы после создания заметки
     onCreate(newNote);
     
   }
@@ -23,7 +25,6 @@ export default function CreateNoteForm({ onCreate }: { onCreate: (note: NoteProp
         <Fieldset.Root className='w-full flex flex-col ' onSubmit={onSubmit}>
           <Stack>
             <Fieldset.Legend>Создание заметки</Fieldset.Legend>
-
             <Field.Root>
               <Input type="text" placeholder='Название заметки' value={note?.title ?? ''} onChange={(e) => setNote({...note, title: e.target.value})}/>
               <Textarea name="" id="" placeholder='Описание' value={note?.description ?? ''} onChange={(e) => setNote({...note, description: e.target.value})}/>

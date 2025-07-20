@@ -10,14 +10,26 @@ import { createNote } from './services/createNote.ts'
 import { Button, IconButton } from '@chakra-ui/react'
 import { MdOutlineWbSunny } from "react-icons/md";
 import { LuMoon } from "react-icons/lu";
+import deleteNote from './services/deleteNote.ts';
 
 function App() {
+
+  //Функционал для смены темы и иконки
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const [icon, setIcon] = useState<JSX.Element>(<MdOutlineWbSunny className='icon'/>);
+  const [icon, setIcon] = useState<JSX.Element>(<MdOutlineWbSunny className='icon' />);
   useEffect(() => {
     setIcon(theme === 'dark' ? <MdOutlineWbSunny /> : <LuMoon />);
   }, [theme]);
-  
+
+  const toggleTheme = () => {
+    const button = document.querySelector('.themeBtn');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+
+    setTheme(newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    button?.classList.toggle('light');
+  };
+
   const [notes, setNotes] = useState<NoteProps[]>([]);
   const [filter, setFilter] = useState({
     search: '',
@@ -36,35 +48,31 @@ function App() {
 
   }, [filter]);
 
-  const toggleTheme = () => {
-    const button = document.querySelector('.themeBtn');
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-  
-    setTheme(newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
-    button?.classList.toggle('light');
-  };
-  
-  
   const onCreate = async (note: NoteProps) => {
     await createNote(note);
     const notes = await fetchNotes(filter);
     setNotes(notes);
   }
-  
+
+  const onDelete = async (id: number) => {
+    await deleteNote(id);
+    const notes = await fetchNotes(filter);
+    setNotes(notes);
+  }
+
 
   return (
-    <section className="app flex flex-row justify-start gap-12">
+    <section className='app flex flex-row justify-center gap-12 !mt-5'>
       <div className='flex flex-col w-1/3 gap-10 '>
-        <CreateNoteForm onCreate={onCreate}/>
-        <Filters filter={filter} setFilter={setFilter}/>
+        <CreateNoteForm onCreate={onCreate} />
+        <Filters filter={filter} setFilter={setFilter} />
       </div>
       {/* <h2>asdf</h2> */}
       <ul className='flex flex-col gap-5 w-1/2'>
         {notes.map((n) => {
           return (
             <li key={n.id}>
-              <Note id={n.id} title={n.title} description={n.description} createdAt={new Date(n.createdAt)} />
+              <Note id={n.id} title={n.title} description={n.description} createdAt={new Date(n.createdAt)} onDelete={onDelete} />
             </li>
           )
         })}
@@ -78,6 +86,5 @@ function App() {
     </section>
   )
 }
-
 
 export default App
