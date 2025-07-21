@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const fetchNotes = async (filter: { search: string; sortItem: string; sortOrder: string; }) => {
     try{
-        const response = await axios.get("http://localhost:5137/notes", {
+        const dbURL = import.meta.env.VITE_DATABASE_URL;
+        const response = await axios.get(dbURL, {
             params: {
                 search: filter?.search,
                 sortItem: filter?.sortItem,
